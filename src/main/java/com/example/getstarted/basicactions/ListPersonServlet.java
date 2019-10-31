@@ -22,6 +22,7 @@ import com.example.getstarted.objects.Person;
 import com.example.getstarted.objects.Result;
 import com.example.getstarted.util.CloudStorageHelper;
 
+import com.google.appengine.api.datastore.DatastoreServiceConfig;
 import com.google.common.base.Strings;
 
 import java.io.IOException;
@@ -71,6 +72,7 @@ public class ListPersonServlet extends HttpServlet {
         throw new IllegalStateException(
             "Invalid storage type. Check if personshelf.storageType property is set.");
     }
+    System.setProperty(DatastoreServiceConfig.DATASTORE_EMPTY_LIST_SUPPORT, Boolean.TRUE.toString());
     this.getServletContext().setAttribute("dao", dao);
     this.getServletContext().setAttribute("storageHelper", storageHelper);
     this.getServletContext().setAttribute(

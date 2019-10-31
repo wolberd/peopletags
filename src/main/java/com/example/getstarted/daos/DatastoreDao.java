@@ -57,6 +57,7 @@ public class DatastoreDao implements PersonDao {
         .createdBy((String) entity.getProperty(Person.CREATED_BY))
         .createdById((String) entity.getProperty(Person.CREATED_BY_ID))
         .first((String) entity.getProperty(Person.FIRST))
+            .socialLinks((List) entity.getProperty(Person.SOCIAL_LINKS))
         .build();
   }
   // [END entityToPerson]
@@ -64,6 +65,7 @@ public class DatastoreDao implements PersonDao {
   // [START create]
   @Override
   public Long createPerson(Person person) {
+    System.out.println("person.getSocialLinks() is"+person.getSocialLinks().size());
     Entity incPersonEntity = new Entity(PERSON_KIND);  // Key will be assigned once written
     incPersonEntity.setProperty(Person.LAST, person.getLast());
     incPersonEntity.setProperty(Person.DESCRIPTION, person.getDescription());
@@ -71,6 +73,7 @@ public class DatastoreDao implements PersonDao {
     incPersonEntity.setProperty(Person.IMAGE_URL, person.getImageUrl());
     incPersonEntity.setProperty(Person.CREATED_BY, person.getCreatedBy());
     incPersonEntity.setProperty(Person.CREATED_BY_ID, person.getCreatedById());
+    incPersonEntity.setProperty(Person.SOCIAL_LINKS,person.getSocialLinks());
 
     Key personKey = datastore.put(incPersonEntity); // Save the Entity
     return personKey.getId();                     // The ID of the Key
@@ -82,6 +85,12 @@ public class DatastoreDao implements PersonDao {
   public Person readPerson(Long personId) {
     try {
       Entity personEntity = datastore.get(KeyFactory.createKey(PERSON_KIND, personId));
+      System.out.println("Inside readPerson:");
+      List<String> linklist = (List<String>) personEntity.getProperty(Person.SOCIAL_LINKS);
+      if (linklist==null)
+        System.out.println("null linklist");
+      else
+        System.out.println("link list size"+linklist.size());
       return entityToPerson(personEntity);
     } catch (EntityNotFoundException e) {
       return null;
@@ -100,6 +109,7 @@ public class DatastoreDao implements PersonDao {
     entity.setProperty(Person.IMAGE_URL, person.getImageUrl());
     entity.setProperty(Person.CREATED_BY, person.getCreatedBy());
     entity.setProperty(Person.CREATED_BY_ID, person.getCreatedById());
+    entity.setProperty(Person.SOCIAL_LINKS,person.getSocialLinks());
 
     datastore.put(entity);                   // Update the Entity
   }

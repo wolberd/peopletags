@@ -33,11 +33,13 @@ public class ReadPersonServlet extends HttpServlet {
   public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException,
       ServletException {
     Long id = Long.decode(req.getParameter("id"));
+    String sociallink=req.getParameter("sociallink");
     PersonDao dao = (PersonDao) this.getServletContext().getAttribute("dao");
     try {
       Person person = dao.readPerson(id);
       req.setAttribute("person", person);
       req.setAttribute("page", "view");
+      req.setAttribute("sociallink", sociallink);
       req.getRequestDispatcher("/base.jsp").forward(req, resp);
     } catch (Exception e) {
       throw new ServletException("Error reading person", e);

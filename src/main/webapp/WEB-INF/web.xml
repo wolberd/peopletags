@@ -42,6 +42,9 @@
       <url-pattern>/deletegroup</url-pattern>
       <url-pattern>/readgroup</url-pattern>
       <url-pattern>/updategroup</url-pattern>
+        <url-pattern>/addlink</url-pattern>
+
+
     </filter-mapping>
 
     <filter>
@@ -63,14 +66,24 @@
     </filter-mapping>
 
     <servlet>
-      <servlet-name>list</servlet-name>
-      <servlet-class>com.example.getstarted.basicactions.ListPersonServlet</servlet-class>
-      <load-on-startup>1</load-on-startup>
+    <servlet-name>list</servlet-name>
+    <servlet-class>com.example.getstarted.basicactions.ListPersonServlet</servlet-class>
+    <load-on-startup>1</load-on-startup>
     </servlet>
     <servlet-mapping>
-      <servlet-name>list</servlet-name>
-      <url-pattern>/</url-pattern>
-      <url-pattern>/persons</url-pattern>
+        <servlet-name>list</servlet-name>
+        <url-pattern>/</url-pattern>
+        <url-pattern>/persons</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>addlink</servlet-name>
+        <servlet-class>com.example.getstarted.basicactions.AddSocialLinkServlet</servlet-class>
+
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>addlink</servlet-name>
+        <url-pattern>/addlink</url-pattern>
     </servlet-mapping>
     
      <servlet>

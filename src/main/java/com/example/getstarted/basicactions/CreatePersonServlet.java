@@ -21,6 +21,7 @@ import com.example.getstarted.util.CloudStorageHelper;
 import com.google.common.base.Strings;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -95,6 +96,7 @@ public class CreatePersonServlet extends HttpServlet {
         // [START auth]
         .createdBy(createdByString)
         .createdById(createdByIdString)
+            .socialLinks(new ArrayList<String>())
         // [END auth]
         .build();
     // [END personBuilder]

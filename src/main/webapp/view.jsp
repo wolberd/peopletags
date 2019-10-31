@@ -39,7 +39,34 @@ Copyright 2016 Google Inc.
       <p class="person-description">${fn:escapeXml(person.description)}</p>
       <small class="person-added-by">Added by
         ${fn:escapeXml(not empty person.createdBy?person.createdBy:'Anonymous')}</small>
+      <c:choose>
+        <c:when test="${empty person.socialLinks}">
+        <p>No social links</p>
+        </c:when>
+        <c:otherwise>
+        <h2>Social Media Links</h2>
+        <c:forEach items="${person.socialLinks}" var="link">
+          <p>${link}</p>
+
+        </c:forEach>
+        </c:otherwise>
+      </c:choose>
+
+      <form method="POST" action="/addlink">
+
+          <div class="form-group">
+            <label for="sociallink">Social Media Link</label>
+            <input type="text" name="sociallink" id="sociallink" value="" class="form-control" />
+
+
+               <input type="hidden" name="id" value="${person.id}" />
+
+            </div>
+          <button type="submit" class="btn btn-success">Add Link</button>
+      </form>
+      <p>social link is ${sociallink}</p>
     </div>
+
   </div>
 </div>
 <!-- [END view] -->

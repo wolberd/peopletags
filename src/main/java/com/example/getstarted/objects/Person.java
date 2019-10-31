@@ -12,8 +12,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package com.example.getstarted.objects;
+import java.util.ArrayList;
+import java.util.List;
+
 
 // [START example]
 public class Person {
@@ -26,6 +28,8 @@ public class Person {
   private String description;
   private Long id;
   private String imageUrl;
+
+  private List<String> socialLinks;
   // [END person]
   // [START keys]
   public static final String LAST = "last";
@@ -36,6 +40,7 @@ public class Person {
  
   public static final String FIRST = "first";
   public static final String IMAGE_URL = "imageUrl";
+  public static final String SOCIAL_LINKS = "socialLinks";
   // [END keys]
 
   // [START constructor]
@@ -49,6 +54,7 @@ public class Person {
     this.description = builder.description;
     this.id = builder.id;
     this.imageUrl = builder.imageUrl;
+    this.socialLinks=builder.socialLinks;
   }
   // [END constructor]
 
@@ -62,6 +68,7 @@ public class Person {
     private String description;
     private Long id;
     private String imageUrl;
+    private List<String> socialLinks;
 
     public Builder first(String first) {
       this.first = first;
@@ -99,11 +106,16 @@ public class Person {
       return this;
     }
 
+    public Builder socialLinks(List<String> socialLinks) {
+      this.socialLinks=socialLinks;
+      return this;
+    }
+
     public Person build() {
       return new Person(this);
     }
   }
-
+  // [END builder]
   public String getFirst() {
     return first;
   }
@@ -161,7 +173,19 @@ public class Person {
     this.imageUrl = imageUrl;
   }
 
-  // [END builder]
+  public List<String> getSocialLinks() {return socialLinks;}
+
+  public void setSocialLinks(List<String> socialLinks) {this.socialLinks=socialLinks;}
+
+  public void addSocialLink(String link) {
+    try {
+      socialLinks.add(link);
+    }
+    catch (Exception e) {
+      System.out.println("social links empty"+e);
+    }
+  }
+
   @Override
   public String toString() {
     return
